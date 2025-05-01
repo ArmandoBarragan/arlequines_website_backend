@@ -1,0 +1,77 @@
+service: theater-api
+
+useDotenv: true
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+
+functions:
+  # Plays
+  createPlay:
+    handler: handlers.plays.create_play
+    events:
+      - http:
+          path: plays
+          method: post
+
+  getPlaysList:
+    handler: handler.plays.get_plays_list
+    events:
+      - http:
+          path: plays
+          method: get
+
+  getPlayDetail:
+    handler: handler.plays.get_play_detail
+    events:
+      - http:
+          path: plays/{id}
+          method: get
+
+  editPlay:
+    handler: handler.plays.edit_play
+    events:
+      - http:
+          path: plays
+          method: put
+
+  # Presentations
+  createPresentation:
+    handler: handlers.presentations.create_play
+    events:
+      - http:
+          path: presentations
+          method: post
+
+
+  getPresentationsList:
+    handler: handlers.presentations.get_presentations_list
+    events:
+      - http:
+          path: presentations
+          method: get
+
+  getPresentationDetail:
+    handler: handlers.presentations.get_presentation_detail
+    events:
+      - http:
+          path: presentations/{id}
+          method: get
+
+  editPresentation:
+    handler: handlers.presentations.edit_presentation
+    events:
+      - http:
+          path: prese
+          method: put
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    zip: true
+    slim: true
